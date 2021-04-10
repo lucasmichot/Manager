@@ -10,30 +10,39 @@ use SocialiteProviders\Manager\Exception\MissingConfigException;
 class ConfigRetriever implements ConfigRetrieverInterface
 {
     /**
+     * Th provider name.
+     *
      * @var string
      */
     protected $providerName;
 
     /**
+     * The provider identifier.
+     *
      * @var string
      */
     protected $providerIdentifier;
 
     /**
+     * The services array.
+     *
      * @var array
      */
     protected $servicesArray;
 
     /**
+     * The additional configuration keys.
+     *
      * @var array
      */
     protected $additionalConfigKeys;
 
     /**
-     * @param string $providerName
-     * @param array  $additionalConfigKeys
+     * Create a new configuration object.
      *
-     * @return \SocialiteProviders\Manager\Contracts\ConfigInterface
+     * @param  string  $providerName
+     * @param  array  $additionalConfigKeys
+     * @return \SocialiteProviders\Manager\Config
      */
     public function fromServices($providerName, array $additionalConfigKeys = [])
     {
@@ -53,9 +62,10 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param array    $configKeys
-     * @param \Closure $keyRetrievalClosure
+     * Get the configuration items.
      *
+     * @param  array  $configKeys
+     * @param  \Closure  $keyRetrievalClosure
      * @return array
      */
     protected function getConfigItems(array $configKeys, Closure $keyRetrievalClosure)
@@ -64,9 +74,10 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param array    $keys
-     * @param \Closure $keyRetrievalClosure
+     * Retrieve the items from the configuration.
      *
+     * @param  array  $keys
+     * @param  \Closure  $keyRetrievalClosure
      * @return array
      */
     protected function retrieveItemsFromConfig(array $keys, Closure $keyRetrievalClosure)
@@ -81,10 +92,10 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param string $key
+     * Get a configuration value for a key.
      *
-     * @return string|null
-     *
+     * @param  string  $key
+     * @return array|mixed|null
      * @throws \SocialiteProviders\Manager\Exception\MissingConfigException
      */
     protected function getFromServices($key)
@@ -105,10 +116,10 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param string $providerName
+     * Get the configuration from a service as an array.
      *
+     * @param  string  $providerName
      * @return array
-     *
      * @throws \SocialiteProviders\Manager\Exception\MissingConfigException
      */
     protected function getConfigFromServicesArray($providerName)
@@ -132,8 +143,9 @@ class ConfigRetriever implements ConfigRetrieverInterface
     }
 
     /**
-     * @param string $key
+     * Checks if an additional configuration with this key exists.
      *
+     * @param  string  $key
      * @return bool
      */
     protected function isAdditionalConfig($key)
