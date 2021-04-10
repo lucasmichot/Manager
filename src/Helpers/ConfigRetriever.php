@@ -82,13 +82,13 @@ class ConfigRetriever implements ConfigRetrieverInterface
      */
     protected function retrieveItemsFromConfig(array $keys, Closure $keyRetrievalClosure)
     {
-        $out = [];
+        $items = [];
 
         foreach ($keys as $key) {
-            $out[$key] = $keyRetrievalClosure($key);
+            $items[$key] = $keyRetrievalClosure($key);
         }
 
-        return $out;
+        return $items;
     }
 
     /**
