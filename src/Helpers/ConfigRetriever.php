@@ -120,22 +120,20 @@ class ConfigRetriever implements ConfigRetrieverInterface
      */
     protected function getConfigFromServicesArray($providerName)
     {
-        $configArray = config("services.{$providerName}");
-
-        if (empty($configArray)) {
-            // If we are running in console we should spoof values to make Socialite happy...
-            if (app()->runningInConsole()) {
-                $configArray = [
-                    'client_id' => "{$this->providerIdentifier}_KEY",
-                    'client_secret' => "{$this->providerIdentifier}_SECRET",
-                    'redirect' => "{$this->providerIdentifier}_REDIRECT_URI",
-                ];
-            } else {
-                throw new MissingConfigException("There is no services entry for $providerName");
-            }
+        if ($configArray = config("services.$providerName")) {
+            return $this->servicesArray = $configArray;
         }
 
-        return $this->servicesArray = $configArray;
+        // If we are running in console we should spoof values to make Socialite happy...
+        if (! app()->runningInConsole()) {
+            throw new MissingConfigException("There is no services entry for $providerName");
+        }
+
+        return $this->servicesArray = [
+            'client_id' => "{$this->providerIdentifier}_KEY",
+            'client_secret' => "{$this->providerIdentifier}_SECRET",
+            'redirect' => "{$this->providerIdentifier}_REDIRECT_URI",
+        ];
     }
 
     /**
