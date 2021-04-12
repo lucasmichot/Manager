@@ -16,6 +16,8 @@ class ServiceProviderTest extends TestCase
      */
     public function it_fires_an_event()
     {
+        $this->expectNotToPerformAssertions();
+
         $socialiteWasCalledMock = m::mock(SocialiteWasCalled::class);
         self::$functions
             ->shouldReceive('app')
@@ -30,8 +32,6 @@ class ServiceProviderTest extends TestCase
 
         $serviceProvider = new ServiceProvider($this->appMockWithBooted());
         $serviceProvider->boot();
-
-        $this->assertTrue(true);
     }
 }
 
